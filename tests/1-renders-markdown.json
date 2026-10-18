@@ -1,0 +1,137 @@
+{
+  "name": "the rendered Markdown of a JavaScript page is the result",
+  "config": {
+    "reviewer": {
+      "model": "scripted/script.json"
+    }
+  },
+  "script": {
+    "steps": [
+      {
+        "text": "allow",
+        "tool_calls": [
+          {
+            "name": "web_render",
+            "arguments": {
+              "url": "https://hn.algolia.com/"
+            }
+          }
+        ]
+      },
+      {
+        "text": "Done."
+      }
+    ]
+  },
+  "prompt": "read https://hn.algolia.com/",
+  "expect": [
+    {
+      "kind": "session_started"
+    },
+    {
+      "kind": "fiber_started"
+    },
+    {
+      "kind": "extensions_loaded"
+    },
+    {
+      "kind": "preamble_built"
+    },
+    {
+      "kind": "opening_message"
+    },
+    {
+      "kind": "turn_started"
+    },
+    {
+      "kind": "step_started"
+    },
+    {
+      "kind": "assistant_message_started"
+    },
+    {
+      "kind": "text_completed"
+    },
+    {
+      "kind": "tool_call_requested"
+    },
+    {
+      "kind": "usage_recorded"
+    },
+    {
+      "kind": "assistant_message_completed"
+    },
+    {
+      "kind": "usage_recorded"
+    },
+    {
+      "kind": "permission_resolved"
+    },
+    {
+      "kind": "tool_call_started"
+    },
+    {
+      "kind": "tool_call_completed",
+      "payload": {
+        "status": "completed",
+        "content": [
+          {
+            "type": "text",
+            "text": "# Hacker News\n\n[Stephen Hawking has died](https://news.ycombinator.com/item?id=16582136)\n[A Message to Our Customers](https://news.ycombinator.com/item?id=11116274)\n"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "step_started"
+    },
+    {
+      "kind": "assistant_message_started"
+    },
+    {
+      "kind": "text_completed"
+    },
+    {
+      "kind": "usage_recorded"
+    },
+    {
+      "kind": "assistant_message_completed"
+    },
+    {
+      "kind": "turn_completed"
+    },
+    {
+      "kind": "fiber_exited"
+    }
+  ],
+  "host": {
+    "exec": [
+      {
+        "request": {
+          "program": "bin/fiber-lightpanda",
+          "args": [
+            "fetch",
+            "--dump",
+            "markdown",
+            "--wait-until",
+            "networkidle",
+            "--terminate-ms",
+            "60000",
+            "--dump-max-bytes",
+            "1048576",
+            "--block-private-networks",
+            "https://hn.algolia.com/"
+          ],
+          "env": {
+            "LIGHTPANDA_DISABLE_TELEMETRY": "true"
+          }
+        },
+        "reply": {
+          "code": 0,
+          "stdout": "# Hacker News\n\n[Stephen Hawking has died](https://news.ycombinator.com/item?id=16582136)\n[A Message to Our Customers](https://news.ycombinator.com/item?id=11116274)\n",
+          "stderr": ""
+        }
+      }
+    ]
+  }
+}
